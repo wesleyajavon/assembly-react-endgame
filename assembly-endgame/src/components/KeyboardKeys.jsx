@@ -4,11 +4,16 @@ import '../index.css'
 
 export default function KeyboardKeys(props) {
 
-    // const styles = {
-    //     backgroundColor: isHeld ? "#59E391" : "#c5c5c5"
-    // }
+    const isHeld = props.isHeld
+
+    const styles = {
+        backgroundColor: isHeld ? "#59E391" : "#c5c5c5"
+    }
 
     return (
-        <button id={props.id}>{props.value}</button>
+        <button 
+            id={props.id}
+            onClick={props.hold}
+            style={styles} >{props.value}</button>
     )
 }

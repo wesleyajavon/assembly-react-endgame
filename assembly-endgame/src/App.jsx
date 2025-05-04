@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { nanoid } from "nanoid"
 import './index.css'
 import KeyboardKeys from './components/KeyboardKeys'
+import WordLetter from './components/WordLetter'
 
 function App() {
 
   const [keys, setKeys] = useState(() => generateKeys())
   const [word, setWord] = useState(() => generateWord())
+  const wordKey = useRef(null)
 
 
   function generateKeys() {
@@ -24,23 +26,27 @@ function App() {
   }
 
   function generateWord() {
-    const words = ["random", "chocolate"]
+    const words = ["RANDOM", "CHOCOLAT"]
     const randomWord = words[Math.floor(Math.random() * words.length)]
-    console.log(randomWord)
-    console.log(randomWord.length)
+
     return new Array(randomWord.length)
       .fill(0)
       .map((_, index) => ({
         value: randomWord.charAt(index),
-        isHeld: false,
+        isFound: false,
         id: nanoid()
       }))
 
   }
 
-  function hold(id) {
+  function hold(id, value) {
     setKeys(oldKey => oldKey.map(key => key.id === id ?
       { ...key, isHeld: !key.isHeld } : key
+    )
+    )
+
+    setWord(oldWord => oldWord.map(key => key.value == value ?
+      { ...key, isFound: !key.isFound } : key
     )
     )
   }
@@ -51,17 +57,17 @@ function App() {
       key={keyObj.id}
       value={keyObj.value}
       isHeld={keyObj.isHeld}
-      hold={() => hold(dieObj.id)}
+      hold={() => hold(keyObj.id, keyObj.value)}
     />)
 
-    const wordElements = word.map(wordObj =>
-      <KeyboardKeys
-        id={wordObj.id}
-        key={wordObj.id}
-        value={wordObj.value}
-        isHeld={wordObj.isHeld}
-        hold={() => hold(dieObj.id)}
-      />)
+  const wordElements = word.map(wordObj =>
+    <WordLetter
+      id={wordObj.id}
+      key={wordObj.id}
+      isFound={wordObj.isFound}
+      value={wordObj.value}
+      ref={wordKey}
+    />)
 
   return (
     <span>

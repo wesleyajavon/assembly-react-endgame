@@ -111,5 +111,7 @@ button {
   width: 10vh;
   height: 10vh;
   font-size: 2rem;
+  cursor: auto;
+  color:#1a1a1a
   
 }
