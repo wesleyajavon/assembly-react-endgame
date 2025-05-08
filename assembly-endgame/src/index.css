@@ -115,3 +115,31 @@ button {
   color:#1a1a1a
   
 }
+
+button.roll-words {
+
+  box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: none;
+  font-size: 2vh;
+  background-color: #35bcff;
+  place-items: center;
+  color: white;
+  align-items: center;
+  width: auto;
+  height: 50px;
+  white-space: nowrap;
+  padding: 6px 21px;
+}
+
+.win {
+  background-color: rgb(6, 185, 33);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.lose {
+  background-color: rgb(211, 103, 9);
+  padding-left: 10px;
+  padding-right: 10px;
+}

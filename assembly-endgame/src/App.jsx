@@ -5,50 +5,111 @@ import { nanoid } from "nanoid"
 import './index.css'
 import KeyboardKeys from './components/KeyboardKeys'
 import WordLetter from './components/WordLetter'
+import Confetti from "react-confetti"
+
+
+
 
 function App() {
 
-  const [keys, setKeys] = useState(() => generateKeys())
-  const [word, setWord] = useState(() => generateWord())
-  const wordKey = useRef(null)
+  const [keys, setKeys] = useState(() => generateKeys());
+  const [word, setWord] = useState([]); // Start empty until data is fetched
+  const [wordArray, setWordArray] = useState([]);
+  const wordKey = useRef(null);
+  const [lifes, setLifes] = useState(8);
+  const redirectButton = useRef(null)
 
+
+  const gameWon = word.every(letter => letter.isFound)
+  const gameLost = lifes <= 0
+
+  // Fetch words from JSON
+  useEffect(() => {
+    fetch("/data.json") // place data.json in public/ directory
+      .then((res) => res.json())
+      .then((data) => {
+        setWordArray(data.words);
+
+        // Generate a word once we have the list
+        const randomWord = data.words[Math.floor(Math.random() * data.words.length)];
+        setWord(
+          Array.from(randomWord).map((letter) => ({
+            value: letter.toUpperCase(),
+            isFound: false,
+            id: nanoid(),
+          }))
+        );
+      })
+      .catch((err) => console.error("Error fetching words:", err));
+  }, []);
+
+  useEffect(() => {
+    if (gameWon || gameLost) {
+      redirectButton.current?.focus()
+    }
+
+  }, [gameWon, gameLost])
 
   function generateKeys() {
-    const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-    return new Array(26)
-      .fill(0)
-      .map((_, index) => ({
-        value: alphabet[index],
-        isHeld: false,
-        id: nanoid()
-      }))
-  }
-
-  function generateWord() {
-    const words = ["RANDOM", "CHOCOLAT"]
-    const randomWord = words[Math.floor(Math.random() * words.length)]
-
-    return new Array(randomWord.length)
-      .fill(0)
-      .map((_, index) => ({
-        value: randomWord.charAt(index),
-        isFound: false,
-        id: nanoid()
-      }))
-
+    return alphabet.map((letter) => ({
+      value: letter,
+      isHeld: false,
+      toRed: false,
+      toGreen: false,
+      disabled: false,
+      id: nanoid(),
+    }));
   }
 
   function hold(id, value) {
-    setKeys(oldKey => oldKey.map(key => key.id === id ?
-      { ...key, isHeld: !key.isHeld } : key
-    )
+    const isInWord = word.some(w => w.value === value);
+
+    setKeys(oldKeys =>
+      oldKeys.map(key => {
+        if (key.id === id) {
+          return {
+            ...key,
+            isHeld: true,
+            toRed: !isInWord,
+            toGreen: isInWord
+          };
+        }
+
+        return key;
+      })
+    );
+
+    setWord(oldWord =>
+      oldWord.map(letter =>
+        letter.value === value
+          ? { ...letter, isFound: true }
+          : letter
+      )
+    );
+
+    if (!isInWord) {
+      setLifes(prev => prev - 1);
+    }
+
+  }
+
+  function rollWords() {
+
+    setKeys(generateKeys)
+
+    const randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+    setWord(
+      Array.from(randomWord).map((letter) => ({
+        value: letter.toUpperCase(),
+        isFound: false,
+        id: nanoid(),
+      }))
     )
 
-    setWord(oldWord => oldWord.map(key => key.value == value ?
-      { ...key, isFound: !key.isFound } : key
-    )
-    )
+    setLifes(8)
+
   }
 
   const keysElements = keys.map(keyObj =>
@@ -57,6 +118,9 @@ function App() {
       key={keyObj.id}
       value={keyObj.value}
       isHeld={keyObj.isHeld}
+      toRed={keyObj.toRed}
+      toGreen={keyObj.toGreen}
+      disabled={gameWon || gameLost || keyObj.isHeld}
       hold={() => hold(keyObj.id, keyObj.value)}
     />)
 
@@ -73,9 +137,20 @@ function App() {
     <span>
 
       <main>
+        {gameWon && <Confetti />}
+
         <h1 className='title'>Assembly: Endgame</h1>
         <p className='instructions'>Guess the word in under 8 attemps to keep the programming world safe from Assembly!</p>
+        
+        <div aria-live="polite" className='win'>
+          {gameWon && <p>Congratulations! You've won! Press "New Game" to start again.</p>}
+        </div>
 
+        <div aria-live="polite" className='lose'>
+          {gameLost && <p>Too bad! You've lost! Press "New Game" to start again.</p>}
+        </div>
+        
+        <p className='instructions'>Lifes left: {lifes} </p>
         <span className='letter-container'>
           {wordElements}
         </span>
@@ -83,6 +158,15 @@ function App() {
         <div className='key-container'>
           {keysElements}
         </div>
+
+        {gameWon || gameLost ?
+          <div>
+            <button ref={redirectButton} className='roll-words' onClick={rollWords}>
+              New Game
+            </button>
+          </div>
+          : null}
+
 
       </main>
 
