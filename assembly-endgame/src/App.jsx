@@ -192,7 +192,7 @@ function App() {
 
         {gameLost &&
           <div aria-live="polite" className='lose'>
-            {gameLost && <p>Too bad! You've lost! Press "New Game" to start again.</p>}
+            {<p>Too bad! You've lost! Press "New Game" to start again.</p>}
           </div>
         }
 
