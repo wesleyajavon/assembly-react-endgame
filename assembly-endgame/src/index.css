@@ -83,6 +83,27 @@ main {
   margin-bottom: 40px;
 }
 
+.language-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 5px;
+
+
+}
+
+.language-container span {
+  display: flex;
+  box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: none;
+  width: 14vh;
+  height: 3vh;
+  font-weight: 900;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-display: center;
+  justify-content: center
+}
 
 
 button {
@@ -143,3 +164,4 @@ button.roll-words {
   padding-left: 10px;
   padding-right: 10px;
 }
+

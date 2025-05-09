@@ -15,6 +15,7 @@ function App() {
   const [keys, setKeys] = useState(() => generateKeys());
   const [word, setWord] = useState([]); // Start empty until data is fetched
   const [wordArray, setWordArray] = useState([]);
+  const [progArray, setProgArray] = useState([]);
   const wordKey = useRef(null);
   const [lifes, setLifes] = useState(8);
   const redirectButton = useRef(null)
@@ -49,6 +50,17 @@ function App() {
     }
 
   }, [gameWon, gameLost])
+
+  useEffect(() => {
+    fetch("/programmingLanguages.json")
+      .then((res) => res.json())
+      .then((data) => {
+        // Generate a word once we have the list
+        setProgArray(data.popular_programming_languages.sort(() => 0.5 - Math.random()).slice(0, 8))
+      })
+      .catch((err) => console.error("Error fetching words:", err));
+
+  }, [])
 
   function generateKeys() {
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -91,8 +103,17 @@ function App() {
 
     if (!isInWord) {
       setLifes(prev => prev - 1);
+      disableLanguage(lifes * (-1) + 8)
     }
 
+  }
+
+  function disableLanguage(index) {
+    setProgArray(oldLang =>
+      oldLang.map((item, itemIndex) =>
+        itemIndex == index ? { ...item, disabled: true } : item
+      )
+    )
   }
 
   function rollWords() {
@@ -109,6 +130,12 @@ function App() {
     )
 
     setLifes(8)
+    setProgArray(progArray => progArray.map(progLang => ({
+      ...progLang,
+      disabled: false
+    })))
+
+
 
   }
 
@@ -133,6 +160,22 @@ function App() {
       ref={wordKey}
     />)
 
+  const langElements = progArray.map((lang, index) => {
+
+    const styles = {
+      backgroundColor: lang.backgroundColor,
+      color: lang.color,
+      cursor: lang.disabled ? "not-allowed" : "default",
+      opacity: lang.disabled ? 0.5 : 1,
+
+    }
+
+
+    return (
+      <span style={styles} key={index}> {lang.name} </span>
+    )
+  })
+
   return (
     <span>
 
@@ -141,19 +184,32 @@ function App() {
 
         <h1 className='title'>Assembly: Endgame</h1>
         <p className='instructions'>Guess the word in under 8 attemps to keep the programming world safe from Assembly!</p>
-        
-        <div aria-live="polite" className='win'>
-          {gameWon && <p>Congratulations! You've won! Press "New Game" to start again.</p>}
-        </div>
 
-        <div aria-live="polite" className='lose'>
-          {gameLost && <p>Too bad! You've lost! Press "New Game" to start again.</p>}
-        </div>
-        
+        {gameWon &&
+          <div aria-live="polite" className='win'>
+            {<p>Congratulations! You've won! Press "New Game" to start again.</p>}
+          </div>}
+
+        {gameLost &&
+          <div aria-live="polite" className='lose'>
+            {gameLost && <p>Too bad! You've lost! Press "New Game" to start again.</p>}
+          </div>
+        }
+
+
+        <section className='language-container'>
+
+          {langElements}
+
+        </section>
+
+
         <p className='instructions'>Lifes left: {lifes} </p>
         <span className='letter-container'>
           {wordElements}
         </span>
+
+
 
         <div className='key-container'>
           {keysElements}

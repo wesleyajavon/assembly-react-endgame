@@ -1,21 +1,26 @@
-# Hangman Game
+🎯 Hangman Game – React Web App
+A modern twist on the classic Hangman game, built from scratch using React. This project helped me solidify core React concepts including functional programming, controlled components, data fetching, and side effects.
 
-A modern take on the classic Hangman game, built with React.
+<!-- Optional: Add a screenshot if available -->
 
-## Features
+🚀 Features
+🎮 Interactive word-guessing gameplay
 
-- Interactive gameplay with dynamic word generation
-- Responsive design for desktop and mobile
-- Score tracking and game history
+⚛️ Built using React functional components
 
-## Technologies Used
+⌨️ Controlled inputs for user interaction
 
-- React
-- JavaScript (ES6+)
-- CSS Modules
+🌐 Fetches random words from an API
 
-## Installation
+🧠 Clean logic and state management with hooks
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/wesleyajavon/assembly-react-endgame.git
+📱 Responsive design for desktop and mobile
+
+🛠️ Tech Stack
+React (Hooks, JSX)
+
+JavaScript (ES6+)
+
+CSS Modules or Styled Components (if used)
+
+Fetch API

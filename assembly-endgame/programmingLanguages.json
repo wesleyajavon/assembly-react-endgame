@@ -1,0 +1,34 @@
+{
+    "popular_programming_languages": [
+      { "key": "term_1", "name": "React", "backgroundColor": "DarkSlateBlue", "color": "white" },
+      { "key": "term_2", "name": "JavaScript", "backgroundColor": "Aqua", "color": "black" },
+      { "key": "term_3", "name": "TypeScript", "backgroundColor": "Coral", "color": "white" },
+      { "key": "term_4", "name": "JSX", "backgroundColor": "BurlyWood", "color": "black" },
+      { "key": "term_5", "name": "Redux", "backgroundColor": "BlueViolet", "color": "white" },
+      { "key": "term_6", "name": "State", "backgroundColor": "Cornsilk", "color": "black" },
+      { "key": "term_7", "name": "Props", "backgroundColor": "DarkCyan", "color": "white" },
+      { "key": "term_8", "name": "Hooks", "backgroundColor": "AntiqueWhite", "color": "black" },
+      { "key": "term_9", "name": "useEffect", "backgroundColor": "DarkOrange", "color": "white" },
+      { "key": "term_10", "name": "useState", "backgroundColor": "Chartreuse", "color": "black" },
+      { "key": "term_11", "name": "Components", "backgroundColor": "CadetBlue", "color": "white" },
+      { "key": "term_12", "name": "Virtual DOM", "backgroundColor": "Cyan", "color": "black" },
+      { "key": "term_13", "name": "DOM", "backgroundColor": "BlanchedAlmond", "color": "black" },
+      { "key": "term_14", "name": "Babel", "backgroundColor": "DarkRed", "color": "white" },
+      { "key": "term_15", "name": "Webpack", "backgroundColor": "Azure", "color": "black" },
+      { "key": "term_16", "name": "ES6", "backgroundColor": "Blue", "color": "white" },
+      { "key": "term_17", "name": "Async", "backgroundColor": "CornflowerBlue", "color": "white" },
+      { "key": "term_18", "name": "Promises", "backgroundColor": "Bisque", "color": "black" },
+      { "key": "term_19", "name": "Fetch API", "backgroundColor": "DarkMagenta", "color": "white" },
+      { "key": "term_20", "name": "Axios", "backgroundColor": "Beige", "color": "black" },
+      { "key": "term_21", "name": "NPM", "backgroundColor": "DarkGreen", "color": "white" },
+      { "key": "term_22", "name": "Yarn", "backgroundColor": "Aquamarine", "color": "black" },
+      { "key": "term_23", "name": "Vite", "backgroundColor": "DarkViolet", "color": "white" },
+      { "key": "term_24", "name": "Tailwind", "backgroundColor": "AliceBlue", "color": "black" },
+      { "key": "term_26", "name": "Next.js", "backgroundColor": "Crimson", "color": "white" },
+      { "key": "term_27", "name": "Routing", "backgroundColor": "DarkSlateGray", "color": "white" },
+      { "key": "term_28", "name": "useContext", "backgroundColor": "DarkSeaGreen", "color": "black" },
+      { "key": "term_29", "name": "Event Handling", "backgroundColor": "DarkKhaki", "color": "black" },
+      { "key": "term_30", "name": "Forms", "backgroundColor": "DeepPink", "color": "white" }
+    ]
+  }
+  
