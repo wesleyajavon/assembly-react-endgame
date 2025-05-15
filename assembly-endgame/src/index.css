@@ -161,7 +161,13 @@ button.roll-words {
 
 .lose {
   background-color: rgb(211, 103, 9);
+  font-display: center;
+  align-items: center;
+  justify-content: center;
+
   padding-left: 10px;
   padding-right: 10px;
+
 }
+
 

@@ -176,6 +176,8 @@ function App() {
     )
   })
 
+  const correctWord = word.map(letter => letter.value).join("")
+
   return (
     <span>
 
@@ -192,10 +194,17 @@ function App() {
 
         {gameLost &&
           <div aria-live="polite" className='lose'>
-            {<p>Too bad! You've lost! Press "New Game" to start again.</p>}
+
+            {<p>You've lost! The correct word was: {correctWord}.</p>}
           </div>
         }
 
+        {gameLost &&
+          <div aria-live="polite" className='lose'>
+
+            {<p className='lose'>Press "New Game" to start again.</p>}
+          </div>
+        }
 
         <section className='language-container'>
 
