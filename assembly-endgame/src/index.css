@@ -31,7 +31,7 @@ body {
 div#root {
   height: 100%;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   max-height: 800px;
 }
 
@@ -106,13 +106,13 @@ main {
 }
 
 .key-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   width: 100%;
   max-width: 500px;
   margin-bottom: 2rem;
-  justify-content: center;
 }
 
 .key-container button {
@@ -123,6 +123,7 @@ main {
   width: 36px;
   height: 36px;
   font-size: 1.1rem;
+  cursor: pointer;
 }
 
 button.roll-words {
@@ -138,6 +139,7 @@ button.roll-words {
   padding: 6px 21px;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .win, .lose {
@@ -147,6 +149,7 @@ button.roll-words {
   padding: 0.5rem 1rem;
   max-width: 90%;
   border-radius: 6px;
+  margin-top: 10px;
 }
 
 .win {
